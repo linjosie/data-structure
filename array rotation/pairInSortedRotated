@@ -12,6 +12,7 @@ bool pairInSortedRotated(int arr[], int n, int sum){
     int h = i;
     int l = i+1;
     
+    //check sum 
     while(h >= 0 || l<n){
         if(arr[h]+arr[l] == sum) return true;
         else if(arr[h]+arr[l] > sum) h--;
