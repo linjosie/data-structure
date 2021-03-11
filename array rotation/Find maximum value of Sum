@@ -1,0 +1,43 @@
+#include <iostream>/
+#include <string>
+
+using namespace std;
+
+void rotate(int arr[], int n){
+    int temp = arr[0];
+    for(int i=0;i<n-1;i++){
+        arr[i]=arr[i+1];
+    }
+    arr[n-1] = temp;
+}
+
+int rotateSum(int arr[], int n){
+    int sumArr[n] = {0};
+    int c = 0;
+    while(c < n){
+        for(int i=0;i<n;i++){
+            sumArr[c] +=i*arr[i];
+        }
+        //cout << sumArr[c] <<" ";
+        c++;
+        rotate(arr,n);
+    }
+    
+    int max = sumArr[0];
+    for(int i=0;i<n-1;i++){
+        if(sumArr[i]> max) max = sumArr[i];
+    }
+    return max;
+}
+
+
+int main() 
+{ 
+    int arr[] = {11, 15, 6, 8, 9, 10}; 
+    int n = sizeof(arr)/sizeof(arr[0]); 
+    
+    cout << rotateSum(arr,n);
+
+    
+    return 0; 
+} 
