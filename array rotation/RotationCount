@@ -1,0 +1,32 @@
+#include <iostream>
+
+using namespace std;
+
+void rotate(int arr[], int n){
+    int temp = arr[0];
+    for(int i=0;i<n;i++){
+        arr[i]=arr[i+1];
+    }
+    arr[n-1] = temp;
+}
+
+int rotateCount(int arr[], int n){
+    int count = 0;
+    for(int i=0;i<n;i++){
+        while(arr[n-1] < arr[0]) {
+            rotate(arr,n);
+            count ++;
+        }
+    }
+    return count;
+}
+
+int main() 
+{ 
+    int arr[] = {11, 13, 15, 6, 8, 9, 10}; 
+    int n = sizeof(arr)/sizeof(arr[0]); 
+    
+    cout << rotateCount(arr,n);
+    
+    return 0; 
+} 
