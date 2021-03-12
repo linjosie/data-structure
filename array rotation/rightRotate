@@ -1,0 +1,77 @@
+#include <iostream>
+
+using namespace std;
+
+void rightRotate(int arr[], int n, int k){
+    int temp[k];
+    for(int i=0;i<k;i++){
+        temp[i] = arr[n-k+i];
+      //  cout <<"temp" <<temp[i]<< endl;
+      //  cout <<"arr" <<arr[i]<<endl;
+    }
+    for(int i=n-k;i>=0;i--){
+        arr[i+k]=arr[i];
+        cout << arr[i]<< endl;
+    }
+    for(int i=0;i<k;i++){
+        arr[i] = temp[i];
+    }
+    for(int i=0;i<n;i++){
+        cout << arr[i]<< " ";
+    }
+}
+
+
+int main() 
+{ 
+    int arr[] = {2, 3, 6, 12, 22}; 
+    int n = sizeof(arr)/sizeof(arr[0]); 
+    rightRotate(arr, n, 3); 
+    return 0; 
+}
+
+/////// other solution
+/*Function to reverse arr[]  
+from index start to end*/
+void reverseArray(int arr[], int start, 
+                            int end) 
+{ 
+    while (start < end) 
+    { 
+        std::swap(arr[start], arr[end]); 
+        start++; 
+        end--; 
+    } 
+} 
+  
+/* Function to right rotate arr[] 
+of size n by d */
+void rightRotate(int arr[], int d, int n) 
+{ 
+    reverseArray(arr, 0, n-1); 
+    reverseArray(arr, 0, d-1); 
+    reverseArray(arr, d, n-1); 
+} 
+  
+/* function to print an array */
+void printArray(int arr[], int size) 
+{ 
+    for (int i = 0; i < size; i++) 
+        std::cout << arr[i] << " "; 
+} 
+  
+// driver code 
+int main() 
+{ 
+    int arr[] = {1, 2, 3, 4, 5,  
+                6, 7, 8, 9, 10}; 
+      
+    int n = sizeof(arr)/sizeof(arr[0]); 
+    int k = 3; 
+      
+    rightRotate(arr, k, n); 
+    printArray(arr, n); 
+  
+    return 0; 
+}  
+
