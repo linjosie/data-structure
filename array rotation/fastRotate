@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+void fastRotate(int arr[], int n, int k){
+    int newArr[2*n];
+    for(int i=0;i<2*n;i++){
+        newArr[i] = arr[i%n];
+        //cout << newArr[i] << " ";
+    }
+    
+    int shift = k%n;
+    
+    for(int i=shift;i<n+shift;i++){
+        cout << newArr[i]<< " ";
+    }
+}
+
+
+int main() 
+{ 
+    int arr[] = {15, 18, 2, 3, 6, 12, 22}; 
+    int n = sizeof(arr)/sizeof(arr[0]); 
+    fastRotate(arr, n, 2); 
+    return 0; 
+}
+
+
+
+
+////////
