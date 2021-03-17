@@ -1,0 +1,50 @@
+#include <iostream>
+
+using namespace std;
+
+int findSmallrotate(int arr[], int n, int rotate[2][2], int find){
+    /*for (int i=0;i<n;i++){
+        cout << arr[i]<<" ";
+    }
+    cout << endl;*/
+    for(int i=0;i<2;i++){
+        int x = rotate[i][0];
+        int y = rotate[i][1];
+        
+        //cout << x << y ;
+        
+        int temp = arr[y];
+        for(int i=y;i>=x;i--){
+            arr[i]=arr[i-1];
+            //cout << arr[i];
+        }
+        arr[x] = temp;
+        
+       // cout <<" n size" << n ;
+       
+       for(int i=0;i<n;i++){
+            cout << arr[i];
+        }
+        cout << endl;
+        
+        
+    }
+    
+    for(int i=0;i<n;i++){
+            if(arr[i] == find) return i;
+    }
+}
+
+
+
+
+int main() {
+    int arr[] = {1, 2, 3, 4, 5 };
+    int n = sizeof(arr)/sizeof(arr[0]);
+    int rotate[2][2]= { {0, 2}, {0, 3} };
+    int find = 3;
+    
+    cout << findSmallrotate(arr, n, rotate, find);
+    
+    return 0;
+}
