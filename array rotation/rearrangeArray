@@ -1,0 +1,95 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+
+using namespace std;
+
+void fixArray(int arr[], int n){
+    for(int i=0;i<n;i++){
+        //cout << arr[i] << endl;
+        if(arr[i] != -1 && arr[i]!= i){
+            //cout << arr[i] << endl;
+            int temp = arr[i];
+            while(arr[temp] != -1 && arr[temp]!= temp){
+                //cout <<"temp"<< temp<< endl ;
+                int fix = arr[temp];
+                arr[temp] = temp;
+                temp = fix;
+            }
+            //cout << endl;
+            arr[temp] = temp;
+        }
+        if(arr[i]!= i) arr[i] = -1;
+        
+    }
+    for(int i=0;i<n;i++){
+        cout << arr[i] << " ";
+    }
+}
+
+int main() {
+    // Write C++ code here
+    int n, arr[] = { 4, -1, 1, -1, 2};
+    n = sizeof(arr) / sizeof(arr[0]);
+    
+    fixArray(arr, n);
+
+    return 0;
+}
+
+///////// other solution
+
+#include <iostream>
+#include <unordered_map>
+ 
+using namespace std;
+ 
+// 
+void fixArray(int arr[], int n)
+{
+  // Initialize a hashmap
+  std::unordered_map<int, int> hmap;
+   
+  // Enter each element in hmap
+  for(int i{0}; i<n; i++)
+  {
+    if(arr[i] != -1)
+      hmap[arr[i]] = 1;
+  }
+   
+  // Navigate through array,
+  // and put A[i] = i,
+  // if i is present in hmap
+  for(int i{0}; i<n; i++)
+  {
+    // if i(index) is found in hmap
+    if(hmap.find(i) != hmap.end())
+    {
+      arr[i] = i;
+    }
+    // if i not found
+    else
+    {
+      arr[i] = -1;
+    }
+  }
+   
+}
+ 
+// Driver Code
+int main() {
+   
+  // Array initialization
+  int arr[] {-1, -1, 6, 1, 9,
+          3, 2, -1, 4,-1};
+  int n = sizeof(arr) / sizeof(arr[0]);
+   
+  // Function Call
+  fixArray(arr, n);
+   
+  // Print output
+  for(int i{0}; i<n; i++)
+    std::cout << arr[i] << ' ';
+   
+  return 0;
+}
