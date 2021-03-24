@@ -1,0 +1,154 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+
+void count_pos_neg(int arr[], int n){
+    int count_neg = 0;
+    int count_pos = 0;
+    vector<int> pos;
+    vector<int> neg;
+    vector<int> newVec;
+    for(int i=0;i<n;i++){
+        if(arr[i]>=0){
+            pos.push_back(arr[i]);
+            //cout << " pos"<< arr[i];
+            count_pos ++;
+        }
+        else{
+            neg.push_back(arr[i]);
+            //cout << "neg" << arr[i];
+            count_neg ++;
+        }
+    }/*
+    cout << count_pos << endl;
+    cout << count_neg << endl;
+    
+    for(int i=0;i<count_pos;i++){
+        cout << pos[i];
+    }
+    cout << endl;
+    
+     for(int i=0;i<count_neg;i++){
+        cout << neg[i];
+    }
+    cout << endl;*/
+    if(count_neg < count_pos){
+        //cout << "neg < pos ";
+        for(int i=0;i<count_neg;i++){
+            newVec.push_back(pos[i]);
+            newVec.push_back(neg[i]);
+        }
+        for(int i=count_neg;i<n;i++) newVec.push_back(pos[i]);
+    }
+    if(count_neg > count_pos){
+        //cout << "neg > pos ";
+        for(int i=0;i<count_pos;i++){
+            newVec.push_back(neg[i]);
+            newVec.push_back(pos[i]);
+        }
+        for(int i=count_pos;i<n;i++) newVec.push_back(neg[i]);
+    }
+    
+    for(int i=0;i<n;i++){
+        cout << newVec[i]<< ' ';
+    }
+    
+}
+
+
+int main()
+{
+  int arr[] = {-1, 2, -3, 4, 5, 6, -7, 8, 9};
+  int n = sizeof(arr)/sizeof(arr[0]);
+  
+  count_pos_neg(arr, n);
+  
+}
+
+
+///////other solution  using class
+
+#include <iostream>
+using namespace std;
+  
+class GFG
+{
+    public:
+    void rearrange(int [],int);
+    void swap(int *,int *);
+    void printArray(int [],int);
+};
+  
+// The main function that rearranges 
+// elements of given array. It puts
+// positive elements at even indexes 
+// (0, 2, ..) and negative numbers 
+// at odd indexes (1, 3, ..).
+void GFG :: rearrange(int arr[], int n)
+{
+    // The following few lines are 
+    // similar to partition process
+    // of QuickSort. The idea is to 
+    // consider 0 as pivot and
+    // divide the array around it.
+    int i = -1;
+    for (int j = 0; j < n; j++)
+    {
+        if (arr[j] < 0)
+        {
+            i++;
+            swap(&arr[i], &arr[j]);
+        }
+    }
+  
+    // Now all positive numbers are at 
+    // end and negative numbers at the
+    // beginning of array. Initialize 
+    // indexes for starting point of
+    // positive and negative numbers 
+    // to be swapped
+    int pos = i + 1, neg = 0;
+  
+    // Increment the negative index by 
+    // 2 and positive index by 1,
+    // i.e., swap every alternate negative 
+    // number with next positive number
+    while (pos < n && neg < pos && 
+                     arr[neg] < 0)
+    {
+        swap(&arr[neg], &arr[pos]);
+        pos++;
+        neg += 2;
+    }
+}
+  
+// A utility function 
+// to swap two elements
+void GFG :: swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+  
+// A utility function to print an array
+void GFG :: printArray(int arr[], int n)
+{
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+}
+  
+// Driver Code
+int main() 
+{
+    int arr[] = {-1, 2, -3, 4, 
+                  5, 6, -7, 8, 9};
+    int n = sizeof(arr) / sizeof(arr[0]);
+    GFG test;
+    test.rearrange(arr, n);
+    test.printArray(arr, n);
+    return 0;
+}
