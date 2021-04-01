@@ -1,0 +1,92 @@
+#include <iostream>
+
+using namespace std;
+
+void given_index(int arr[], int index[], int n){
+    int temp[n];
+    for(int i=0;i<n;i++){
+        temp[index[i]] = arr[i];
+    }
+    for(int i=0;i<n;i++){
+        arr[i] = temp[i];
+        index[i] = i;
+    }
+    for(int i=0;i<n;i++){
+        cout << arr[i] << " ";
+        
+    }
+    cout <<endl;
+    
+    for(int i=0;i<n;i++){
+        cout << index[i] << " ";
+        
+    }
+    
+}
+
+int main() {
+    int arr[] = {10 , 16, 5};
+    int index[] = {2,0,1};
+    int n = sizeof(arr)/sizeof(arr[0]);
+    given_index(arr, index, n);
+
+    return 0;
+}
+
+
+
+////// other solution
+
+
+
+#include<iostream>
+ 
+using namespace std;
+ 
+// Function to reorder elements of arr[] according
+// to index[]
+void reorder(int arr[], int index[], int n)
+{
+    // Fix all elements one by one
+    for (int i=0; i<n; i++)
+    {
+        // While index[i] and arr[i] are not fixed
+        while (index[i] != i)
+        {
+            // Store values of the target (or correct)
+            // position before placing arr[i] there
+            int  oldTargetI  = index[index[i]];
+            char oldTargetE  = arr[index[i]];
+ 
+            // Place arr[i] at its target (or correct)
+            // position. Also copy corrected index for
+            // new position
+            arr[index[i]] = arr[i];
+            index[index[i]] = index[i];
+ 
+            // Copy old target values to arr[i] and
+            // index[i]
+            index[i] = oldTargetI;
+            arr[i]   = oldTargetE;
+        }
+    }
+}
+ 
+// Driver program
+int main()
+{
+    int arr[] = {50, 40, 70, 60, 90};
+    int index[] = {3,  0,  4,  1,  2};
+    int n = sizeof(arr)/sizeof(arr[0]);
+ 
+    reorder(arr, index, n);
+ 
+    cout << "Reordered array is: \n";
+    for (int i=0; i<n; i++)
+        cout << arr[i] << " ";
+ 
+    cout << "\nModified Index array is: \n";
+    for (int i=0; i<n; i++)
+        cout << index[i] << " ";
+    return 0;
+}
